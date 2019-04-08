@@ -22,6 +22,12 @@ def get_hosts(delim='\n'):
     return delim.join([redirect + '\t' + url for url in distractions])
 
 
+def restore():
+    ''' Restore /etc/hosts '''
+    shutil.copyfile('/etc/hosts.bak', '/etc/hosts')
+    print('/etc/hosts was restored successfully')
+
+
 def backup():
     ''' Backup /etc/hosts '''
     shutil.copyfile('/etc/hosts', '/etc/hosts.bak')
@@ -85,13 +91,18 @@ if __name__ == '__main__':
         help='Disable protection from distrations',
         action='store_true')
     argparser.add_argument('-b', help='Backup /etc/hosts', action='store_true')
+    argparser.add_argument('-r', help='Restore /etc/hosts', action='store_true')
+
 
     args = argparser.parse_args()
 
-    assert(args.e ^ args.d ^ args.b)
+    assert(args.e ^ args.d ^ args.b ^ args.r)
 
     if args.b:
         backup()
+
+    if args.r:
+        restore()
 
     if args.e:
         enable()
