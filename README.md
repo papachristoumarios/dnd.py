@@ -5,8 +5,6 @@ This self-explanatory command line tool aims to put all of these websites in a c
 
 It works by simply putting all these websites to `/etc/hosts` and redirecting them to `127.0.0.1`. 
 
-
-
 ## Setup 
 
 In order to setup the script use the `setup.py` file provided by the project
@@ -24,6 +22,14 @@ In order to block the distracting websites type in (with sudo)
 ```bash
 sudo dnd.py -e 
 ```
+
+You can also specify a time interval that the blockade is activated via 
+
+```bash
+sudo dnd.py -e -t 1 # Interval Specified in Minutes
+```
+
+After one minute, you can get distracted again!
 
 To remove the blockade use the `-d` flag
 
@@ -43,8 +49,6 @@ And restore it anytime you want with
 sudo dnd.py -r
 ```
 
-
-
 ## Customization
 
 In order to customize `dnd.py` for your needs you can change the following variables in `dnd.py`
@@ -59,8 +63,6 @@ distractions = [
 ''' Here you put the redirection url '''
 redirect = '127.0.0.1'
 ```
-
-
 
 ## License
 
