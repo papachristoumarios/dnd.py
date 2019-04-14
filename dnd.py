@@ -10,12 +10,13 @@
       -e          Enable protection from distrations
       -d          Disable protection from distrations
       -b          Backup /etc/hosts
-
+      -i          Time interval to protect (in minutes)
       Author: Marios Papachristou
 '''
 import re
 import argparse
 import shutil
+import time
 
 
 def get_hosts(delim='\n'):
@@ -92,7 +93,7 @@ if __name__ == '__main__':
         action='store_true')
     argparser.add_argument('-b', help='Backup /etc/hosts', action='store_true')
     argparser.add_argument('-r', help='Restore /etc/hosts', action='store_true')
-
+    argparser.add_argument('-t', help='Time interval to protect you (in minutes)', type=float)
 
     args = argparser.parse_args()
 
@@ -108,3 +109,12 @@ if __name__ == '__main__':
         enable()
     elif args.d:
         disable()
+    
+    if args.t != None and (args.e ^ args.d):
+        assert(args.t >= 0)
+        time.sleep(args.t * 60)
+        if args.e:
+            disable()
+        else:
+            enable()
+
