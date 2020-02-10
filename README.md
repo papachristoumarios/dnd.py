@@ -5,6 +5,12 @@ This self-explanatory command line tool aims to put all of these websites in a c
 
 It works by simply putting all these websites to `/etc/hosts` and redirecting them to `127.0.0.1`. 
 
+## Authors 
+
+ * Marios Papachristou
+ 
+We accept contributions to the project under the form of _pull requests_. 
+
 ## Setup 
 
 In order to setup the script use the `setup.py` file provided by the project
