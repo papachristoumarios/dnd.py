@@ -16,8 +16,9 @@
 import re
 import argparse
 import shutil
+import string
 import time
-
+import datetime
 
 def get_hosts(delim='\n'):
     return delim.join([redirect + '\t' + url for url in distractions])
@@ -93,11 +94,14 @@ if __name__ == '__main__':
         action='store_true')
     argparser.add_argument('-b', help='Backup /etc/hosts', action='store_true')
     argparser.add_argument('-r', help='Restore /etc/hosts', action='store_true')
-    argparser.add_argument('-t', help='Time interval to protect you (in minutes)', type=float)
+
+    group = argparser.add_mutually_exclusive_group()
+    group.add_argument('-t', help='Time interval to protect you (in minutes)', type=float)
+    group.add_argument('-u', help='Protect until the specified time', type=str)
 
     args = argparser.parse_args()
 
-    assert(args.e ^ args.d ^ args.b ^ args.r)
+    #assert(args.e ^ args.d ^ args.b ^ args.r)
 
     if args.b:
         backup()
@@ -113,6 +117,19 @@ if __name__ == '__main__':
     if args.t != None and (args.e ^ args.d):
         assert(args.t >= 0)
         time.sleep(args.t * 60)
+        if args.e:
+            disable()
+        else:
+            enable()
+
+    if args.u != None and (args.e ^ args.d):
+        currentTime = datetime.datetime.now()
+        cy, cm, cd = currentTime.year, currentTime.month, currentTime.day
+        eh, emin = map(int, args.u.split(':'))
+        endTime = datetime.datetime(cy, cm, cd, eh, emin, 0)
+        difference = (endTime - currentTime).total_seconds()
+        assert(difference > 0)
+        time.sleep(difference)
         if args.e:
             disable()
         else:
