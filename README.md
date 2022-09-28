@@ -37,6 +37,12 @@ sudo dnd.py -e -t 1 # Interval Specified in Minutes
 
 After one minute, you can get distracted again!
 
+There is also an option to activate the blockade until a specific time in the future via
+
+```bash
+sudo dnd.py -e -u 16:00 # Time Format HH:MM
+```
+
 To remove the blockade use the `-d` flag
 
 ```bash
