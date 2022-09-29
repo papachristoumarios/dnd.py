@@ -16,7 +16,6 @@
 import re
 import argparse
 import shutil
-import string
 import time
 import datetime
 
@@ -101,7 +100,7 @@ if __name__ == '__main__':
 
     args = argparser.parse_args()
 
-    #assert(args.e ^ args.d ^ args.b ^ args.r)
+    assert(args.e ^ args.d ^ args.b ^ args.r)
 
     if args.b:
         backup()
